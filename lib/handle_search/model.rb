@@ -165,7 +165,7 @@ module HandleSearch
     def initialize(request = {})
       raise Exception, "Search is uninitializible! Define default scope first." unless self.initializible?
       run_callbacks(:initialize) do
-        @uniq_id = Base64.urlsafe_encode64(Time.now._dump)
+        @uniq_id = Base64.urlsafe_encode64(Time.now.send(:_dump))
         @escape = []
         @param_name = name.parameterize
         @hidden = false
@@ -213,7 +213,7 @@ module HandleSearch
     end
     
     def existed=(value)
-      @_existed.replace(value)
+      existed.replace(value)
     end
   
     def associate_to(association)

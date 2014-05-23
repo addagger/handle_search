@@ -96,7 +96,7 @@ module HandleSearch
         if query.present? && columns.present?
           columns.each do |column|
             Array.wrap(query).each do |value|
-              c.add ["LOWER(#{column}) LIKE ?", "%#{value.mb_chars.downcase}%"]
+              c.add ["#{column} ~* ?", ".*#{value}.*"]
             end
           end
         end

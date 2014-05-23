@@ -192,7 +192,11 @@ module HandleSearch
     end
     
     def load
-      relation
+      if Rails.version >= "4.0.0" && (includes_values.any? || joins_values.any?)
+        relation.references(*(includes_values|joins_values))
+      else
+        relation
+      end
     end
     
   end
